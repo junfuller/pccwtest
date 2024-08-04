@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "Login Authentication", description = "Endpoints to authenticate login")
+@Tag(name = "Login Authentication", description = "Endpoints to authenticate login.")
 public class LoginController {
     private final UserService userService;
 
     @Anonymous
     @PostMapping("/login")
-    @Operation(summary = "User Login", description = "Login with username and password")
+    @Operation(summary = "User Login", description = "This endpoint allows a user to log into the system.")
     public ResponseEntity<String> login(@RequestBody @Validated UserDTO userDTO) {
         return userService.loginUser(userDTO);
     }

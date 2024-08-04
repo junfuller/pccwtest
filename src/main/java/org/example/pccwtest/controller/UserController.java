@@ -18,13 +18,13 @@ import java.util.List;
 @RequestMapping("users")
 @Validated
 @RequiredArgsConstructor
-@Tag(name = "Manage Users", description = "Endpoints for user management")
+@Tag(name = "Manage Users", description = "Endpoints for user management.")
 public class UserController {
     private final UserService userService;
 
     @Anonymous
     @PostMapping("/register")
-    @Operation(summary = "Register a new user", description = "Register a new user with username, email and password")
+    @Operation(summary = "Register a new user", description = "This endpoint allows for the registration of a new user in the system.")
     public ResponseEntity<User> register(@RequestBody @Validated UserDTO userDTO) {
         User user = userService.registerUser(userDTO);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
@@ -33,13 +33,19 @@ public class UserController {
     @PostMapping("/test")
     @Operation(summary = "Test Endpoint", description = "Use this endpoint to test the secured endpoint. Bearer token must be provided to access this endpoint.")
     public ResponseEntity<String> test() {
-        return new ResponseEntity<>("test", HttpStatus.CREATED);
+        return new ResponseEntity<>("test", HttpStatus.OK);
+    }
+
+    @GetMapping("/ListOfLoggedInUsers")
+    @Operation(summary = "Retrieve All Logged-In Users", description = "This endpoint retrieves a list of all users who are currently logged into the system.")
+    public ResponseEntity<List<LoginUser>> listOfLoggedInUsers() {
+        return new ResponseEntity<>(userService.listAllLoggedInUsers(), HttpStatus.OK);
     }
 
     @GetMapping("/list")
-    @Operation(summary = "Retrieve all users", description = "Use this endpoint to retrieve all the users.")
-    public ResponseEntity<List<LoginUser>> list() {
-        return new ResponseEntity<>(userService.listUser(), HttpStatus.CREATED);
+    @Operation(summary = "Retrieve all users", description = "This endpoint retrieves a list of all users in the system.")
+    public ResponseEntity<List<User>> listUsers() {
+        return new ResponseEntity<>(userService.listUsers(), HttpStatus.OK);
     }
 
 }

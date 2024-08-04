@@ -13,12 +13,20 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * Global exception handler for the application.
+ * This class handles various exceptions and provides
+ * structured error responses.
+ */
 @ControllerAdvice
 public class CustomExceptionHandler {
 
-    /*
-     * Handle validation errors
+    /**
+     * Handle validation errors.
+     * This method captures `MethodArgumentNotValidException` exceptions,
+     * extracts validation error details, and returns a structured `ApiError` response.
+     *
+     *  @return a `ResponseEntity` containing the `ApiError` details and an HTTP 400 status
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiError> handleValidationExceptions(MethodArgumentNotValidException ex, WebRequest request) {
@@ -40,6 +48,13 @@ public class CustomExceptionHandler {
         return new ResponseEntity<>(validationError, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Handle illegal argument exceptions.
+     * This method captures `IllegalArgumentException` exceptions
+     * and returns a structured `ApiError` response.
+     *
+     * @return a `ResponseEntity` containing the `ApiError` details and an HTTP 400 status
+     */
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ApiError> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request) {
         ApiError apiError = new ApiError(
