@@ -20,18 +20,18 @@ public class CacheConfig {
      * Defines a {@link Cache} bean for storing authentication tokens.
      * The cache is configured with the following settings:
      * <ul>
-     *     <li>Entries expire 2 minutes after the last write or access.</li>
+     *     <li>Entries expire 30 minutes after the last write or access.</li>
      *     <li>Initial cache size is set to 100 entries.</li>
      *     <li>The maximum number of cache entries is set to {@link Integer#MAX_VALUE}.</li>
      * </ul>
      *
      * @return a {@link Cache} instance for storing {@link String} tokens and {@link LoginUser} objects
      */
-    @Bean( name = "tokenCache" )
+    @Bean
     public Cache<String, LoginUser> tokenCache() {
         return Caffeine.newBuilder()
                 // Set the time to expire after the last write or access
-                .expireAfterWrite( Duration.ofMinutes( 2 ) )
+                .expireAfterWrite( Duration.ofMinutes( 30 ) )
                 // Initial cache size
                 .initialCapacity( 100 )
                 // Maximum number of cache entries

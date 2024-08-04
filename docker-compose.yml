@@ -3,9 +3,21 @@ services:
   app:
     build: .
     ports:
-      - "8181:8181"
+      - "8080:8080"
+    environment:
+      SPRING_MAIL_HOST: mailhog
+      SPRING_MAIL_PORT: 1025
+    networks:
+      - my_network
+
   mailhog:
     image: mailhog/mailhog
     ports:
       - "1025:1025"
       - "8025:8025"
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge

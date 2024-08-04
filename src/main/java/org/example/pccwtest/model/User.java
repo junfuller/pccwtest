@@ -1,5 +1,6 @@
 package org.example.pccwtest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -49,9 +50,10 @@ public class User {
     /**
      * The password of the user.
      * <p>
-     * This field is used for user authentication and should be stored securely (e.g., hashed).
+     * This field is used for user authentication.
      * </p>
      */
+    @JsonIgnore
     String password;
 
     /**
